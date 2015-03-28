@@ -25,7 +25,8 @@ $routes->get('/race/new', function() {
 });
 // Määritetään reitti game/:id vasta tässä, jottei se mene sekaisin reitin game/new kanssa
 $routes->get('/race/:id', function($id) {
-    HelloWorldController::race_show($id);
+//    HelloWorldController::race_show($id);
+    RaceController::show($id);
 });
 
 $routes->get('/race/:id/edit', function($id) {

@@ -11,9 +11,12 @@ class RaceController extends BaseController {
         View::make('races/race_list.html', array('races' => $races));
     }
 
+    public static function show($id) {
+        $race = Race::find($id);
+        View::make('races/race_show.html', array('race' => $race));
+    }
+
     public static function create() {
-
-
         View::make('races/new.html');
     }
 
