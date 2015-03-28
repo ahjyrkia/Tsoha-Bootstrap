@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Lisää kisa</h1>
+
+  <form method="post" action="{{base_path}}/race">
+    <div class="form-group">
+      <label>Nimi</label>
+      <input type="text" name="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Kisapäivä</label>
+      <input type="text" name="raceday" class="form-control">
+    </div>
+
+
+    <div class="form-group">
+      <label>Kuvaus</label>
+      <textarea name="description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+  </form>
+{% endblock %}
