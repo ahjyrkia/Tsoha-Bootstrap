@@ -8,9 +8,8 @@ class Race extends BaseModel {
 // Konstruktori
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_date',  'validate_description');
+        $this->validators = array('validate_name', 'validate_date', 'validate_description');
     }
-
 
     public static function all() {
         // Alustetaan kysely tietokantayhteydellämme
@@ -56,22 +55,25 @@ class Race extends BaseModel {
             return $race;
         }
     }
+
     public function update() {
-        $query = DB::connection() ->prepare('UPDATE Race SET name = :name, raceday = :raceday,'
-                . 'description = :description WHERE ID = :id');
-        Kint::dump($query);
+        $query = DB::connection()->prepare('UPDATE Race SET name = :name, raceday = :raceday,'
+                . 'description = :description, raced = :raced WHERE ID = :id');
+
         $query->execute(array('id' => $this->id, 'name' => $this->name,
-            'raceday' => $this->raceday, 'description' => $this->description));
-        }
+            'raceday' => $this->raceday, 'description' => $this->description, 'raced' => $this->raced));
+    }
+
+    public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM Race WHERE ID = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
     // Huomaathan, että save-metodi ei ole staattinen!
     public function save() {
-        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
-        $query = DB::connection()->prepare('INSERT INTO Race (name, raceday, description) VALUES (:name, :raceday, :description) RETURNING id');
-        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
-        $query->execute(array('name' => $this->name, 'raceday' => $this->raceday, 'description' => $this->description));
-        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
+        $query = DB::connection()->prepare('INSERT INTO Race (name, raceday, description, raced, added) VALUES (:name, :raceday, :description, :raced, NOW()) RETURNING id');
+        $query->execute(array('name' => $this->name, 'raceday' => $this->raceday, 'description' => $this->description, 'raced' => $this->raced ));
         $row = $query->fetch();
-        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->id = $row['id'];
     }
 

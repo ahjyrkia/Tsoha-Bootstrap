@@ -3,4 +3,6 @@ INSERT INTO Client (name, password) VALUES ('anton', 'Anton123');
 INSERT INTO Client (name, password) VALUES ('anton2', 'Anton123'); -- Koska id-sarakkeen tietotyyppi on SERIAL, se asetetaan automaattisesti
 -- Game taulun testidata
 INSERT INTO Racer (name, description) VALUES ('hiihtaja', 'asdasdas');
-INSERT INTO Race (name, description, raceday, added) VALUES ('Rajamäki-hiihto', 'hiihetää', '2015-03-21', NOW());-- Lisää INSERT INTO lauseet tähän tiedostoon
+INSERT INTO Race (name, description, raceday, added, raced) VALUES ('Rajamäki-hiihto', 'hiihetää', '2015-03-21', NOW(), FALSE);
+INSERT INTO Race (name, description, raceday, added, raced) VALUES ('Pahkan hiihdot', 'Pahkan vuosittaiset kisat', '2015-02-11', NOW(), FALSE);
+-- Lisää INSERT INTO lauseet tähän tiedostoon

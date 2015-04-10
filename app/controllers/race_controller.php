@@ -22,7 +22,13 @@ class RaceController extends BaseController {
     }
 
     public static function create() {
-        View::make('races/new.html');
+        $user = self::get_user_logged_in();
+        if ($user) {
+           View::make('races/new.html'); 
+        } else {
+            Redirect::to('/race', array('message' => 'Lisätäksesi kilpailuja sinun on kirjauduttava sisään.'));
+        }
+        
     }
 
     public static function store() {
@@ -49,41 +55,32 @@ class RaceController extends BaseController {
 // Pelin muokkaaminen (lomakkeen käsittely)
     public static function update($id) {
         $params = $_POST;
-        if ($params['raced']) {
-            $params['raced'] = true;
-        } else {
-            $params['raced'] = false;
-        }
+
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
-            'raced' => $params['raced'],
+//            'raced' => $params['raced'],
             'raceday' => $params['raceday'],
             'description' => $params['description']
         );
-        Kint::dump($attributes);
+
 // Alustetaan Game-olio käyttäjän syöttämillä tiedoilla
         $race = new Race($attributes);
         $errors = $race->errors();
 
-//        if (count($errors) > 0) {
-//            View::make('races/race_edit.html', array('errors' => $errors, 'attributes' => $attributes));
-//        } else {
-// Kutsutaan alustetun olion update-metodia, joka päivittää pelin tiedot tietokannassa
+        if (count($errors) > 0) {
+            View::make('races/race_edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
         $race->update();
 
-        Redirect::to('/race/' . $race->id, array('message' => 'Kisaa on muokattu onnistuneesti!'));
-//        }
+        Redirect::to('/race');
+        }
     }
 
-// Pelin poistaminen
     public static function destroy($id) {
-// Alustetaan Game-olio annetulla id:llä
         $race = new Race(array('id' => $id));
-// Kutsutaan Game-malliluokan metodia destroy, joka poistaa pelin sen id:llä
         $race->destroy();
 
-// Ohjataan käyttäjä pelien listaussivulle ilmoituksen kera
         Redirect::to('/race', array('message' => 'Kisa on poistettu onnistuneesti!'));
     }
 
