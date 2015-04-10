@@ -1,21 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-{% if message %}
-<div class="alert alert-danger">
-    <p>{{message}} <a href="/Tikaso/login">Kirjaudu sisään?</a></p>
-</div>
-{% endif %}
+
 
 <h1>Hiihtokisat</h1>
-
+{%if user_logged_in %}
 <p>
     <a href="{{base_path}}/race/new" class="btn btn-success">Lisää kisa</a>
 </p>
-
+{% endif %}
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Nimi</th>
+            <th>Kuvaus</th>
             <th>Kisapäivä</th>
             <th>Status</th>
             <th>Lisäyspäivä</th>
@@ -26,6 +23,7 @@
         {% for race in races %}
         <tr>
             <td><a href="{{base_path}}/race/{{race.id}}">{{race.name}}</td>
+            <td>{{race.description}}</td>
             <td>{{race.raceday}}</td>
             <td>
                 {% if race.raced %}
