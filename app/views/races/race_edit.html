@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>kisan muokkaus</h1>
+<h1>Kisan muokkaus</h1>
 
-  <form>
+<form method="post" action="{{base_path}}/race/{{race.id}}/edit">
     <div class="checkbox">
-      <label>
-        <input type="checkbox">
-        Kisattu
-      </label>
+        <label>
+            <input type="checkbox" name="raced" value="{{race.raced}}">
+            Kisattu
+        </label>
     </div>
     <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" class="form-control" value="Rajamäki-Hiihto">
+        <label>Nimi</label>
+        <input type="text" name="name" class="form-control" value="{{race.name}}">
     </div>
     <div class="form-group">
-      <label>Kisapäivä</label>
-      <input type="text" class="form-control" value="21.3.2015">
+        <label>Kisapäivä</label>
+        <input type="text" name="raceday" class="form-control" value="{{race.raceday}}">
+    </div>
+
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea class="form-control" name="description">{{race.description}}
+        </textarea>
     </div>
     <div class="form-group">
-      <label>Status</label>
-      <input type="text" class="form-control" value="tuleva">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+<!--        <form method="post" action="{{base_path}}/game/{{game.id}}/destroy" style="display: inline-block;">
+            <button type="submit" class="btn btn-danger">Poista</button>
+        </form>-->
     </div>
-    <div class="form-group">
-      <label>Kuvaus</label>
-      <textarea class="form-control">  blablabala
-      </textarea>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button>
-    </div>
-  </form>
+</form>
 {% endblock %}

@@ -8,7 +8,9 @@ class Race extends BaseModel {
 // Konstruktori
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_date',  'validate_description');
     }
+
 
     public static function all() {
         // Alustetaan kysely tietokantayhteydellämme
@@ -54,7 +56,13 @@ class Race extends BaseModel {
             return $race;
         }
     }
-
+    public function update() {
+        $query = DB::connection() ->prepare('UPDATE Race SET name = :name, raceday = :raceday,'
+                . 'description = :description WHERE ID = :id');
+        Kint::dump($query);
+        $query->execute(array('id' => $this->id, 'name' => $this->name,
+            'raceday' => $this->raceday, 'description' => $this->description));
+        }
     // Huomaathan, että save-metodi ei ole staattinen!
     public function save() {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon

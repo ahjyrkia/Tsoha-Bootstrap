@@ -30,7 +30,13 @@ $routes->get('/race/:id', function($id) {
 });
 
 $routes->get('/race/:id/edit', function($id) {
-    HelloWorldController::race_edit($id);
+    RaceController::edit($id);
+});
+$routes->post('/race/:id/edit', function($id) {
+    RaceController::update($id);
+});
+$routes->get('/race/:id/destroy', function($id) {
+    RaceController::destroy($id);
 });
 $routes->get('/login', function() {
     HelloWorldController::login();
