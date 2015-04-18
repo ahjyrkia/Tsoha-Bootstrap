@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <h1>{{race.name}}</h1>
 
 
@@ -8,26 +9,18 @@
     <thead>
         <tr>
 
-            <th>Kisapäivä</th>
-            <th>Status</th>
-            <th>Lisäyspäivä</th>
-            <th>Kuvaus</th>
+            <th>Osallistujat</th>
+            <th>Maa</th>
         </tr>
     </thead>
 
     <tbody>
+        {% for racer in racers %}
         <tr>
-            <td>{{race.raceday}}</td>
-            <td>
-                {% if race.raced %}
-                <label class="label label-success">kisa ohi
-                    {% else %}
-                    <label class="label label-danger">tuleva
-                        {% endif %}
-                        </td>
-                        <td>{{race.added}}</td>
-                        <td>{{race.description}}</td>
-                        </tr>
-                        </tbody>
-                        </table>
-                        {% endblock %}
+            <td>{{racer.name}}</td>
+            <td>{{racer.country}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

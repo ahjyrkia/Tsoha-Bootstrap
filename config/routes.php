@@ -32,6 +32,9 @@ $routes->get('/race/:id', function($id) {
 $routes->get('/race/:id/edit', function($id) {
     RaceController::edit($id);
 });
+$routes->get('/race/:id/show', function($id) {
+    RaceracerController::show($id);
+});
 $routes->post('/race/:id/edit', function($id) {
     RaceController::update($id);
 });
@@ -41,17 +44,20 @@ $routes->post('/race/:id/destroy', function($id) {
 $routes->get('/login', function() {
     HelloWorldController::login();
 });
-$routes->get('/login', function(){
-  // Kirjautumislomakkeen esittäminen
-  UserController::login();
+$routes->get('/login', function() {
+    // Kirjautumislomakkeen esittäminen
+    UserController::login();
 });
-$routes->post('/login', function(){
-  // Kirjautumisen käsittely
-  UserController::handle_login();
+$routes->post('/login', function() {
+    // Kirjautumisen käsittely
+    UserController::handle_login();
 });
-$routes->get('/user', function(){
-  // Kirjautumisen käsittely
-  UserController::index();
+$routes->get('/logout', function() {
+    UserController::logout();
+});
+$routes->get('/user', function() {
+    // Kirjautumisen käsittely
+    UserController::index();
 });
 
 

@@ -1,56 +1,48 @@
 <?php
 
-class Race extends BaseModel {
+class Raceracer extends BaseModel {
 
 // Attribuutit
-    public $id, $racer_id, $name, $raceday, $raced, $description, $added;
+    public $id, $race, $racer;
 
 // Konstruktori
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_date', 'validate_description');
+        $this->validators = array('');
     }
 
     public static function all() {
-        // Alustetaan kysely tietokantayhteydellämme
-        $query = DB::connection()->prepare('SELECT * FROM Race');
+        $query = DB::connection()->prepare('SELECT * FROM Raceracer');
         $query->execute();
         $rows = $query->fetchAll();
-        $races = array();
-        Kint::dump($rows);
+        $raceracers = array();
+
         foreach ($rows as $row) {
-            $races[] = new Race(array(
+            $raceracers[] = new Raceracers(array(
                 'id' => $row['id'],
-                'racer_id' => $row['racer_id'],
-                'name' => $row['name'],
-                'raceday' => $row['raceday'],
-                'raced' => $row['raced'],
-                'description' => $row['description'],
-                'added' => $row['added'],
+                'race' => $row['race'],
+                'racer' => $row['racer'],
             ));
         }
-        Kint::dump($races);
-        return $races;
+        return $raceracers;
     }
 
-    public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Race WHERE id = :id LIMIT 1');
+    public static function findByRace($id) {
+        $query = DB::connection()->prepare('SELECT Racer.id, Racer.name, Racer.country FROM Raceracer FULL OUTER JOIN Racer ON racer = Racer.id WHERE Raceracer.race = :id');
         $query->execute(array('id' => $id));
-        $row = $query->fetch();
-
-        if ($row) {
-            $race = new Race(array(
+        $rows = $query->fetchAll();
+        Kint::dump($rows);
+        $racers = array();
+        foreach ($rows as $row) {
+            $racers[] = new Racer(array(
                 'id' => $row['id'],
-                'racer_id' => $row['racer_id'],
                 'name' => $row['name'],
-                'raceday' => $row['raceday'],
-                'raced' => $row['raced'],
-                'description' => $row['description'],
-                'added' => $row['added'],
+                'country' => $row['country'],
             ));
-
-            return $race;
+           
         }
+        Kint::dump($racers);            
+        return $racers;
     }
 
     public function update() {
@@ -69,7 +61,7 @@ class Race extends BaseModel {
     // Huomaathan, että save-metodi ei ole staattinen!
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Race (name, raceday, description, raced, added) VALUES (:name, :raceday, :description, :raced, NOW()) RETURNING id');
-        $query->execute(array('name' => $this->name, 'raceday' => $this->raceday, 'description' => $this->description, 'raced' => $this->raced ));
+        $query->execute(array('name' => $this->name, 'raceday' => $this->raceday, 'description' => $this->description, 'raced' => $this->raced));
         $row = $query->fetch();
         $this->id = $row['id'];
     }

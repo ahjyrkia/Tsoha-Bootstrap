@@ -33,6 +33,7 @@
                         <span class="icon-bar"></span>
                         {% if user_logged_in %}
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                         {% endif %}
                     </button>
                     <!-- Sovelluksen nimi -->
@@ -47,6 +48,7 @@
                         <li><a href="/Tikaso/racers">hiihtäjät</a></li>
                         {% if user_logged_in %}
                         <li><a href="/Tikaso/user"> <p>{{user_logged_in.name}}</p></a></li>
+                        <li><a href="/Tikaso/logout"> <p>kirjaudu ulos</p></a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -1,28 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Hiihtäjät</h1>
+<h1>Hiihtäjät</h1>
 
-  <p>
-    <a href="{{base_path}}/race/new" class="btn btn-success">Lisää osallistuja</a>
-  </p>
+<p>
+    <a href="{{base_path}}/race/new" class="btn btn-success">Lisää hiihtäjä</a>
+</p>
 
-  <table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered">
     <thead>
-      <tr>
-        <th>Nimi</th>
-        <th>Tietoa</th>
-        <th></th>
-      </tr>
+        <tr>
+            <th>Nimi</th>
+            <th>Maa</th>
+        </tr>
     </thead>
 
     <tbody>
-      {% for racer in racers %}
+        {% for racer in racers %}
         <tr>
-          <td><a href="{{base_path}}/racers/{{racer.id}}">{{racer.name}}</td>
-          <td>{{racer.description}}</td>
-
+            <td><a href="{{base_path}}/racers/{{racer.id}}">{{racer.name}}</td>
+            <td>{{racer.country}}</td>
         </tr>
-      {% endfor %}
+        {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}

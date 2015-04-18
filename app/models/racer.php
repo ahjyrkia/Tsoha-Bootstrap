@@ -3,7 +3,7 @@
 class Racer extends BaseModel {
 
 // Attribuutit
-    public $id, $name, $description;
+    public $id, $name, $country;
 
 // Konstruktori
     public function __construct($attributes) {
@@ -24,7 +24,7 @@ class Racer extends BaseModel {
             $racers[] = new Racer(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'description' => $row['description']
+                'country' => $row['country']
             ));
         }
         Kint::dump($racers);
@@ -40,7 +40,7 @@ class Racer extends BaseModel {
             $racer = new Racer(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'description' => $row['description']
+                'country' => $row['country']
             ));
 
             return $racer;

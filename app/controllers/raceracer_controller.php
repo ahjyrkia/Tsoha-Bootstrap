@@ -1,19 +1,18 @@
 <?php
 
-class RaceController extends BaseController {
+class RaceracerController extends BaseController {
 
     public static function index() {
-// Haetaan kaikki pelit tietokannasta
         $races = Race::all();
 
 
-// Renderöidään views/game kansiossa sijaitseva tiedosto index.html muuttujan $games datalla
         View::make('races/race_list.html', array('races' => $races));
     }
 
     public static function show($id) {
+        $racers = Raceracer::findByRace($id);
         $race = Race::find($id);
-        View::make('races/race.html', array('race' => $race));
+        View::make('races/race_show.html', array('racers' => $racers, 'race' => $race));
     }
 
     public static function edit($id) {
