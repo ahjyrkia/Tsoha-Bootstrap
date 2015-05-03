@@ -6,7 +6,7 @@ Yleisiä linkkejä:
 * [Linkki kirjautumiseen](https://ahjyrkia.users.cs.helsinki.fi/Tsoha/login)
 * [Linkit kisa-sivuille](https://ahjyrkia.users.cs.helsinki.fi/Tsoha/race)
 * [Linkit kisan muokkaukseen](https://ahjyrkia.users.cs.helsinki.fi/Tsoha/race/1/edit)
-* [Linkki dokumentaatiooni](https://github.com/ahjyrkia/tulospalvelu/blob/master/doc/dokumentaatio.pdf)
+* [Linkki dokumentaatiooni](https://github.com/ahjyrkia/Tsoha-Bootstrap/blob/master/doc/dokumentaatio%20(2).pdf)
 * [Linkki käyttöohjeisiin](https://github.com/ahjyrkia/Tsoha-Bootstrap/blob/master/doc/K%C3%A4ytt%C3%B6ohje.md)
 * Käyttäjätunnus: anton
 * Salasana: Anton123
