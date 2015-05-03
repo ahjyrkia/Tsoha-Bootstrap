@@ -74,7 +74,6 @@ class Raceracer extends BaseModel {
         $query->execute(array('id' => $this->id));
     }
 
-    // Huomaathan, että save-metodi ei ole staattinen!
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Raceracer (race, racer, time) VALUES (:race, :racer, :time) RETURNING id');
         $query->execute(array('race' => $this->race, 'racer' => $this->racer, 'time' => $this->time));

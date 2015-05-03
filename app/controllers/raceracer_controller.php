@@ -32,10 +32,8 @@ class RaceracerController extends BaseController {
     }
 
     public static function storekopy() {
-// POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
 
         $params = $_POST;
-// Alustetaan uusi Game-luokan olion käyttäjän syöttämillä arvoilla
         $attributes = new Race(array(
             'name' => $params['name'],
             'description' => $params['description'],

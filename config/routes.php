@@ -67,7 +67,6 @@ $routes->get('/logout', function() {
     UserController::logout();
 });
 $routes->get('/user', function() {
-    // Kirjautumisen käsittely
     UserController::index();
 });
 
