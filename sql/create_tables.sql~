@@ -1,22 +1,29 @@
 
 CREATE TABLE Racer(
-  id SERIAL PRIMARY KEY, -- SERIAL tyyppinen pääavain pitää huolen, että tauluun lisätyllä rivillä on aina uniikki pääavain. Kätevää!
-  name varchar(50) NOT NULL, -- Muista erottaa sarakkeiden määrittelyt pilkulla!
-  description varchar(400)
+  id SERIAL PRIMARY KEY, 
+  name varchar(50) NOT NULL, 
+  country varchar(3)
 );
 
+  
 CREATE TABLE Client(
-  id SERIAL PRIMARY KEY, -- SERIAL tyyppinen pääavain pitää huolen, että tauluun lisätyllä rivillä on aina uniikki pääavain. Kätevää!
-  name varchar(50) NOT NULL, -- Muista erottaa sarakkeiden määrittelyt pilkulla!
+  id SERIAL PRIMARY KEY, 
+  name varchar(50) NOT NULL, 
   password varchar(50) NOT NULL
 );
 
 CREATE TABLE Race(
   id SERIAL PRIMARY KEY,
-  racer_id INTEGER REFERENCES Racer(id), -- Viiteavain Player-tauluun
+  racer_id INTEGER REFERENCES Racer(id), 
   name varchar(50) NOT NULL,
   raceday DATE,
   raced boolean DEFAULT FALSE,
   description varchar(400),
   added DATE
-);-- Lisää CREATE TABLE lauseet tähän tiedostoon
+);
+
+CREATE TABLE Raceracer(
+  id SERIAL PRIMARY KEY,
+  race INTEGER REFERENCES Race(id) ON DELETE CASCADE,
+  racer INTEGER REFERENCES Racer(id) ON DELETE CASCADE
+);

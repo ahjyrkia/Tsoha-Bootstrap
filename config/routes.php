@@ -14,32 +14,43 @@ $routes->get('/race', function() {
 $routes->get('/racers', function() {
     RacerController::index();
 });
-// Pelin lisääminen tietokantaan
+$routes->get('/racer/new', function() {
+    RacerController::create();
+});
+$routes->post('/racers', function() {
+    RacerController::store();
+});
 $routes->post('/race', function() {
-    Kint::trace();
     RaceController::store();
 });
-// Pelin lisäyslomakkeen näyttäminen
 $routes->get('/race/new', function() {
     RaceController::create();
 });
-// Määritetään reitti game/:id vasta tässä, jottei se mene sekaisin reitin game/new kanssa
+
 $routes->get('/race/:id', function($id) {
-//    HelloWorldController::race_show($id);
     RaceController::show($id);
+});
+$routes->post('/race/:id', function($id) {
+//    RaceracerController::destroy($id);
+    RaceracerController::store($id);
 });
 
 $routes->get('/race/:id/edit', function($id) {
     RaceController::edit($id);
 });
-$routes->get('/race/:id/show', function($id) {
+$routes->get('/race/:id/tulokset', function($id) {
     RaceracerController::show($id);
+});
+
+$routes->post('/race/:id/tulokset', function($id) {
+    RaceracerController::storeTime($id);
 });
 $routes->post('/race/:id/edit', function($id) {
     RaceController::update($id);
 });
 $routes->post('/race/:id/destroy', function($id) {
     RaceController::destroy($id);
+    RaceracerController::destroyByRace($id);
 });
 $routes->get('/login', function() {
     HelloWorldController::login();

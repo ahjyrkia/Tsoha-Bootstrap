@@ -43,12 +43,14 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit --> 
-                        <li><a href="/Tikaso/race">kisat</a></li>
-                        <li><a href="/Tikaso/login">kirjaudu</a></li>
-                        <li><a href="/Tikaso/racers">hiihtäjät</a></li>
+                        <li><a href="/Tsoha/race">kisat</a></li>
+                        {% if not user_logged_in %}
+                        <li><a href="/Tsoha/login">kirjaudu</a></li>
+                        {% endif %}
+                        <li><a href="/Tsoha/racers">hiihtäjät</a></li>
                         {% if user_logged_in %}
-                        <li><a href="/Tikaso/user"> <p>{{user_logged_in.name}}</p></a></li>
-                        <li><a href="/Tikaso/logout"> <p>kirjaudu ulos</p></a></li>
+                        <li><a href="/Tsoha/user"> <p>{{user_logged_in.name}}</p></a></li>
+                        <li><a href="/Tsoha/logout"> <p>kirjaudu ulos</p></a></li>
                         {% endif %}
                     </ul>
                 </div>

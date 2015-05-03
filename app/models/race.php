@@ -17,7 +17,6 @@ class Race extends BaseModel {
         $query->execute();
         $rows = $query->fetchAll();
         $races = array();
-        Kint::dump($rows);
         foreach ($rows as $row) {
             $races[] = new Race(array(
                 'id' => $row['id'],
@@ -29,7 +28,6 @@ class Race extends BaseModel {
                 'added' => $row['added'],
             ));
         }
-        Kint::dump($races);
         return $races;
     }
 

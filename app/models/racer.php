@@ -3,11 +3,12 @@
 class Racer extends BaseModel {
 
 // Attribuutit
-    public $id, $name, $country;
+    public $id, $name, $country, $time;
 
 // Konstruktori
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name');
     }
 
     public static function all() {
@@ -24,10 +25,10 @@ class Racer extends BaseModel {
             $racers[] = new Racer(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'country' => $row['country']
+                'country' => $row['country'],
+
             ));
         }
-        Kint::dump($racers);
         return $racers;
     }
 
@@ -45,6 +46,13 @@ class Racer extends BaseModel {
 
             return $racer;
         }
+    }
+
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Racer (name, country) VALUES (:name, :country) RETURNING id');
+        $query->execute(array('name' => $this->name, 'country' => $this->country));
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
 
 }

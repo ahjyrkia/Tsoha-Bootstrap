@@ -3,17 +3,16 @@
 class RaceController extends BaseController {
 
     public static function index() {
-// Haetaan kaikki pelit tietokannasta
+
         $races = Race::all();
-
-
-// Renderöidään views/game kansiossa sijaitseva tiedosto index.html muuttujan $games datalla
         View::make('races/race_list.html', array('races' => $races));
     }
 
     public static function show($id) {
+        $racers = Raceracer::findByRace($id);
+        $notinrace = Raceracer::findRacersNotInRace($id);
         $race = Race::find($id);
-        View::make('races/race.html', array('race' => $race));
+        View::make('races/race.html', array('racers' => $racers, 'race' => $race, 'notinrace' => $notinrace));
     }
 
     public static function edit($id) {
@@ -32,10 +31,8 @@ class RaceController extends BaseController {
     }
 
     public static function store() {
-// POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
 
         $params = $_POST;
-// Alustetaan uusi Game-luokan olion käyttäjän syöttämillä arvoilla
         $attributes = new Race(array(
             'name' => $params['name'],
             'description' => $params['description'],
@@ -52,7 +49,6 @@ class RaceController extends BaseController {
         }
     }
 
-// Pelin muokkaaminen (lomakkeen käsittely)
     public static function update($id) {
         $params = $_POST;
 
@@ -64,7 +60,6 @@ class RaceController extends BaseController {
             'description' => $params['description']
         );
 
-// Alustetaan Game-olio käyttäjän syöttämillä tiedoilla
         $race = new Race($attributes);
         $errors = $race->errors();
 

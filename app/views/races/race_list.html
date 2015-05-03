@@ -14,8 +14,7 @@
             <th>Nimi</th>
             <th>Kuvaus</th>
             <th>Kisapäivä</th>
-            <th>Status</th>
-            <th>Lisäyspäivä</th>
+<!--            <th>Status</th>-->
         </tr>
     </thead>
 
@@ -25,15 +24,14 @@
             <td><a href="{{base_path}}/race/{{race.id}}">{{race.name}}</td>
             <td>{{race.description}}</td>
             <td>{{race.raceday}}</td>
-            <td>
+<!--            <td>
                 {% if race.raced %}
                 <label class="label label-success">kisa ohi
                     {% else %}
                     <label class="label label-danger">tuleva
                         {% endif %}
-                        </td>
-                        <td>{{race.added}}</td>
-                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/race/{{race.id}}/show">Osallistujat</a></td>
+                        </td>-->
+                        <td><a class="btn btn-default btn-sm" href="{{base_path}}/race/{{race.id}}/tulokset">Tulokset</a></td>
                         {% if user_logged_in %}
                         <td><a class="btn btn-default btn-sm" href="{{base_path}}/race/{{race.id}}/edit">Muokkaa</a></td>
                         {% endif %}

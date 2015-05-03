@@ -11,8 +11,10 @@ class RaceracerController extends BaseController {
 
     public static function show($id) {
         $racers = Raceracer::findByRace($id);
+        $notinrace = Raceracer::findRacersNotInRace($id);
         $race = Race::find($id);
-        View::make('races/race_show.html', array('racers' => $racers, 'race' => $race));
+        
+        View::make('races/race_show.html', array('racers' => $racers, 'race' => $race, 'notinrace' => $notinrace));
     }
 
     public static function edit($id) {
@@ -23,14 +25,13 @@ class RaceracerController extends BaseController {
     public static function create() {
         $user = self::get_user_logged_in();
         if ($user) {
-           View::make('races/new.html'); 
+            View::make('races/new.html');
         } else {
             Redirect::to('/race', array('message' => 'Lisätäksesi kilpailuja sinun on kirjauduttava sisään.'));
         }
-        
     }
 
-    public static function store() {
+    public static function storekopy() {
 // POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
 
         $params = $_POST;
@@ -51,36 +52,37 @@ class RaceracerController extends BaseController {
         }
     }
 
-// Pelin muokkaaminen (lomakkeen käsittely)
-    public static function update($id) {
-        $params = $_POST;
+    public static function store($id) {
 
+        $params = $_POST;
         $attributes = array(
-            'id' => $id,
-            'name' => $params['name'],
-//            'raced' => $params['raced'],
-            'raceday' => $params['raceday'],
-            'description' => $params['description']
+            'race' => $id,
+            'racer' => $params['racer'],
+            'time' => 'N/A',
         );
 
-// Alustetaan Game-olio käyttäjän syöttämillä tiedoilla
-        $race = new Race($attributes);
-        $errors = $race->errors();
+        $raceracer = new Raceracer($attributes);
+        $raceracer->save();
 
-        if (count($errors) > 0) {
-            View::make('races/race_edit.html', array('errors' => $errors, 'attributes' => $attributes));
-        } else {
-        $race->update();
+        Redirect::to('/race/' . $id);
+    }
 
-        Redirect::to('/race');
-        }
+    public static function storeTime($id) {
+        $params = $_POST;
+        $attributes = array(
+            'race' => $id,
+            'racer' => $params['racer'],
+            'time' => $params['time'],
+        );
+        $raceracer = new Raceracer($attributes);
+
+        $raceracer->update();
+//        Redirect::to('/race/' . $id . '/tulokset');
     }
 
     public static function destroy($id) {
-        $race = new Race(array('id' => $id));
-        $race->destroy();
-
-        Redirect::to('/race', array('message' => 'Kisa on poistettu onnistuneesti!'));
+        $raceracer = new Raceracer(array('id' => $id));
+        $raceracer->destroy();
     }
 
 }

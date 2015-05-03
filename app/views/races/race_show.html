@@ -9,8 +9,9 @@
     <thead>
         <tr>
 
-            <th>Osallistujat</th>
+            <th>Hiihtäjä</th>
             <th>Maa</th>
+            <th>Aika</th>
         </tr>
     </thead>
 
@@ -19,8 +20,27 @@
         <tr>
             <td>{{racer.name}}</td>
             <td>{{racer.country}}</td>
+            <td>{{racer.time}}</td>
         </tr>
         {% endfor %}
     </tbody>
+
 </table>
+<form method="post" action="{{base_path}}/race/{{race.id}}/tulokset">
+    <div class="form-group">
+        <label>Lisää aika</label>
+        <div class="form-group">
+            <input type="text" name="time" class="form-control" value="{{raceracer.time}}">
+        </div>
+        <select class="form-control" name="racer">
+            {% for racer in racers %}
+            <option value="{{racer.id}}">{{racer.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+</form>
 {% endblock %}
